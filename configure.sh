@@ -12,5 +12,6 @@ if [ ! -f /opt/JDownloader/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSe
 fi
 
 sed -Ei "s/\"password\" : .+\"(,?)/\"password\" : \"$2\"\1/" /opt/JDownloader/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json && \
-sed -Ei "s/\"email\" : .+\"(,?)/\"email\" : \"$1\"\1/" /opt/JDownloader/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json
+sed -Ei "s/\"email\" : .+\"(,?)/\"email\" : \"$1\"\1/" /opt/JDownloader/cfg/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json && \
+sed -Ei "s/\"defaultdownloadfolder\" : .+\"(,?)/\"defaultdownloadfolder\" : \"$XDG_DOWNLOAD_DIR\"\1/" org.jdownloader.settings.GeneralSettings.json
 pkill -f "JDownloader"

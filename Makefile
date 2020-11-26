@@ -1,4 +1,4 @@
-VERSION ?= 1.4.2
+VERSION ?= 1.0.0
 CACHE ?= --no-cache=1
 FULLVERSION ?= ${VERSION}
 archs ?= amd64 arm32v6 armhf arm64v8
@@ -9,7 +9,7 @@ qemu-arm-static:
 	cp /usr/bin/qemu-arm-static .
 qemu-aarch64-static:
 	cp /usr/bin/qemu-aarch64-static .
-build: qemu-arm-static qemu-aarch64-static
+build: qemu-aarch64-static 
 	$(foreach arch,$(archs), \
 		FILE=Dockerfile; \
 		if [ $(arch) = amd64 ]; \
@@ -27,7 +27,7 @@ build: qemu-arm-static qemu-aarch64-static
 			image=bellsoft\\/liberica-openjdk-alpine:10-aarch64; \
 		fi; \
 		cat $$FILE | sed "s/FROM openjdk:jre-alpine/FROM $$image/g" > .Dockerfile; \
-		docker build -t jaymoulin/jdownloader:${VERSION}-$(arch) -f .Dockerfile --build-arg ARCH=$${archi} ${CACHE} --build-arg VERSION=${VERSION} .;\
+		docker build -t jahroots/jdownloader:${VERSION}-$(arch) -f .Dockerfile --build-arg ARCH=$${archi} ${CACHE} --build-arg VERSION=${VERSION} .;\
 	)
 publish:
 	docker push jaymoulin/jdownloader

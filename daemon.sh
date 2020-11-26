@@ -43,6 +43,7 @@ if echo "$UMASK" | grep -Eq '0[0-7]{3}' ; then
     umask "$UMASK"
 fi
 
+#java -Djava.awt.headless=true -jar /opt/JDownloader/JDownloader.jar -norestart &
 java -Djava.awt.headless=true -jar /opt/JDownloader/JDownloader.jar -norestart &
 PID=$!
 wait $PID

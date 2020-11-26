@@ -6,11 +6,11 @@ COPY qemu-arm-static /usr/bin/
 FROM builder
 
 ARG ARCH=armhf
-ARG VERSION="1.4.2"
-LABEL maintainer="Jay MOULIN <https://jaymoulin.me/me/docker-jdownloader> <https://twitter.com/MoulinJay>"
+ARG VERSION="1.0.0"
+LABEL maintainer="Jahroots"
 LABEL version="${VERSION}-${ARCH}"
 ENV LD_LIBRARY_PATH=/lib;/lib32;/usr/lib
-ENV XDG_DOWNLOAD_DIR=/opt/JDownloader/Downloads
+ENV XDG_DOWNLOAD_DIR=/opt/downloads
 ENV UMASK=''
 
 COPY ./${ARCH}/*.jar /opt/JDownloader/libs/
@@ -23,12 +23,12 @@ RUN mkdir -p /opt/JDownloader/ && \
     chmod 777 /opt/JDownloader/ -R && \
     rm /usr/bin/qemu-*-static
 
-COPY daemon.sh /opt/JDownloader/
+COPY daemon.sh /opt/
 COPY default-config.json.dist /opt/JDownloader/org.jdownloader.api.myjdownloader.MyJDownloaderSettings.json.dist
 COPY configure.sh /usr/bin/configure
 
 EXPOSE 3129
-WORKDIR /opt/JDownloader
+WORKDIR /opt
 
 
-CMD ["/opt/JDownloader/daemon.sh"]
+CMD ["/opt/daemon.sh"]
